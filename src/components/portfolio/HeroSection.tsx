@@ -1,7 +1,18 @@
-import { useEffect, useState } from "react";
-import { ArrowDown, Github, Linkedin, Mail, Download, Eye } from "lucide-react";
-import profilePhoto from "@/assets/profile-photo.jpg";
+import { useEffect, useRef, useState } from "react";
+import introVideo from "@/assets/hero-intro.mp4";
 
+import {
+  ArrowDown,
+  Github,
+  Linkedin,
+  Mail,
+  Download,
+  Eye,
+  Play,
+  Pause,
+  Volume2,
+  VolumeX,
+} from "lucide-react";
 const roles = [
   
   "Full Stack Developer",
@@ -10,38 +21,70 @@ const roles = [
 ];
 
 const HeroSection = () => {
-  const [roleIndex, setRoleIndex] = useState(0);
-  const [displayText, setDisplayText] = useState("");
-  const [isDeleting, setIsDeleting] = useState(false);
+  const videoRef = useRef<HTMLVideoElement>(null);
 
-  useEffect(() => {
-    const current = roles[roleIndex];
-    const timeout = setTimeout(
-      () => {
-        if (!isDeleting) {
-          if (displayText.length < current.length) {
-            setDisplayText(current.slice(0, displayText.length + 1));
-          } else {
-            setTimeout(() => setIsDeleting(true), 2000);
-          }
-        } else {
-          if (displayText.length > 0) {
-            setDisplayText(current.slice(0, displayText.length - 1));
-          } else {
-            setIsDeleting(false);
-            setRoleIndex((prev) => (prev + 1) % roles.length);
-          }
-        }
-      },
-      isDeleting ? 60 : 100
-    );
-    return () => clearTimeout(timeout);
-  }, [displayText, isDeleting, roleIndex]);
+  const [playing, setPlaying] = useState(false);
+const [muted, setMuted] = useState(true);
+ const [roleIndex, setRoleIndex] = useState(0);
+const [displayText, setDisplayText] = useState("");
+const [isDeleting, setIsDeleting] = useState(false);
+
 
   const scrollToSection = (id: string) => {
-    document.getElementById(id)?.scrollIntoView({ behavior: "smooth" });
-  };
+  document.getElementById(id)?.scrollIntoView({
+    behavior: "smooth",
+  });
+};
 
+const toggleVideo = async () => {
+  if (!videoRef.current) return;
+
+  try {
+    if (videoRef.current.paused) {
+      videoRef.current.muted = false;
+      setMuted(false);
+
+      await videoRef.current.play();
+      setPlaying(true);
+    } else {
+      videoRef.current.pause();
+      setPlaying(false);
+    }
+  } catch (err) {
+    console.error(err);
+  }
+};
+
+
+const toggleMute = () => {
+  if (!videoRef.current) return;
+
+  const newMuted = !muted;
+  videoRef.current.muted = newMuted;
+  setMuted(newMuted);
+};
+useEffect(() => {
+  const current = roles[roleIndex];
+
+  const timeout = setTimeout(() => {
+    if (!isDeleting) {
+      if (displayText.length < current.length) {
+        setDisplayText(current.slice(0, displayText.length + 1));
+      } else {
+        setTimeout(() => setIsDeleting(true), 2000);
+      }
+    } else {
+      if (displayText.length > 0) {
+        setDisplayText(current.slice(0, displayText.length - 1));
+      } else {
+        setIsDeleting(false);
+        setRoleIndex((prev) => (prev + 1) % roles.length);
+      }
+    }
+  }, isDeleting ? 60 : 100);
+
+  return () => clearTimeout(timeout);
+}, [displayText, isDeleting, roleIndex]);
   return (
     <section
       id="home"
@@ -169,27 +212,78 @@ JavaScript, MongoDB
               <div className="absolute inset-0 rounded-full border-2 border-dashed border-primary/30 animate-spin-slow" style={{ margin: "-16px" }} />
               <div className="absolute inset-0 rounded-full border border-accent/20" style={{ margin: "-32px" }} />
               <div className="absolute inset-0 rounded-full bg-primary/20 blur-2xl scale-110 animate-pulse-glow" />
-              <div className="relative w-64 h-64 md:w-80 md:h-80 rounded-full overflow-hidden border-4 border-primary/30 shadow-2xl shadow-primary/20 animate-floating">
-                <img
-                  src={profilePhoto}
-                  alt="Senthilkumar S - Computer Science Engineering Student"
-                  className="w-full h-full object-cover"
-                />
-                <div className="absolute inset-0 rounded-full bg-gradient-to-t from-primary/20 to-transparent" />
+<div className="relative w-64 h-64 md:w-80 md:h-80 rounded-full overflow-hidden border-4 border-primary/30 shadow-2xl shadow-primary/20 animate-floating group">
+
+  <video
+    ref={videoRef}
+    className="w-full h-full object-cover"
+    muted={muted}
+    playsInline
+    preload="metadata"
+    onEnded={() => setPlaying(false)}
+  >
+    <source src={introVideo} type="video/mp4" />
+  </video>
+
+  {/* Play Button */}
+  <button
+    type="button"
+    onClick={toggleVideo}
+    className="absolute inset-0 z-30 flex items-center justify-center"
+  >
+    <div className="w-16 h-16 rounded-full bg-black/50 backdrop-blur-md border border-white/30 flex items-center justify-center hover:scale-110 transition-all duration-300">
+      {playing ? (
+        <Pause className="w-8 h-8 text-white" />
+      ) : (
+        <Play className="w-8 h-8 text-white ml-1" />
+      )}
+    </div>
+  </button>
+
+  {/* 🔊 Speaker Button */}
+  <button
+    type="button"
+    onClick={toggleMute}
+    className="absolute bottom-4 right-4 z-50 w-10 h-10 rounded-full bg-black/70 backdrop-blur-md border border-white/20 flex items-center justify-center"
+  >
+    {muted ? (
+      <VolumeX className="w-5 h-5 text-white" />
+    ) : (
+      <Volume2 className="w-5 h-5 text-white" />
+    )}
+  </button>
+
+</div>
+
+{/* Speaker Button */}
+<button
+  type="button"
+  onClick={toggleMute}
+className="absolute bottom-4 right-4 z-50 w-10 h-10 rounded-full bg-primary backdrop-blur-md border border-primary/40 flex items-center justify-center hover:scale-110 hover:shadow-lg hover:shadow-primary/50 transition-all duration-300">
+  {muted ? (
+    <VolumeX className="w-6 h-6 text-white" />
+  ) : (
+    <Volume2 className="w-6 h-6 text-white" />
+  )}
+</button>
+
+</div>
+
+
+<div
+  onClick={toggleVideo}
+className="absolute -right-24 top-1/2 -translate-y-1/2 hidden lg:flex flex-col items-start cursor-pointer">
+  <span className="text-[11px] tracking-[0.35em] uppercase text-white/70">
+    PLAY
+  </span>
+
+  <span className="text-[11px] tracking-[0.35em] uppercase text-white/70">
+    REEL
+  </span>
+
               </div>
 
-              <div className="absolute -left-4 top-8 glass-card glow-border px-3 py-2 animate-fade-in-up" style={{ animationDelay: "0.5s" }}>
-                <div className="text-xl font-bold font-display text-primary">5+</div>
-                <div className="text-xs text-muted-foreground">Projects</div>
-              </div>
-              <div className="absolute -right-4 bottom-12 glass-card glow-border px-3 py-2 animate-fade-in-up" style={{ animationDelay: "0.8s" }}>
-                <div className="text-xl font-bold font-display text-accent">4+</div>
-                <div className="text-xs text-muted-foreground">Certifications</div>
-              </div>
-              <div className="absolute -bottom-2 left-8 glass-card glow-border px-3 py-2 animate-fade-in-up" style={{ animationDelay: "1.1s" }}>
-                <div className="text-xl font-bold font-display text-foreground">B.E</div>
-                <div className="text-xs text-muted-foreground">CSE Student</div>
-              </div>
+              
             </div>
           </div>
         </div>
@@ -197,7 +291,6 @@ JavaScript, MongoDB
         <div className="absolute bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2 text-muted-foreground animate-bounce">
           <span className="text-xs font-mono">scroll down</span>
           <ArrowDown className="w-4 h-4" />
-        </div>
       </div>
     </section>
   );

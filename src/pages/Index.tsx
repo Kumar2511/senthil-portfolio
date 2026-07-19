@@ -5,7 +5,7 @@ import AboutSection from "@/components/portfolio/AboutSection";
 import SkillsSection from "@/components/portfolio/SkillsSection";
 import ProjectsSection from "@/components/portfolio/ProjectsSection";
 import CertificationsSection from "@/components/portfolio/CertificationsSection";
-import ResumeSection from "@/components/portfolio/ResumeSection";
+import WorkExperienceSection from "@/components/portfolio/workExperience";
 import ContactSection from "@/components/portfolio/ContactSection";
 import PortfolioFooter from "@/components/portfolio/PortfolioFooter";
 import { Code2 } from "lucide-react";
@@ -54,7 +54,7 @@ const Index = () => {
           <SkillsSection />
           <ProjectsSection />
           <CertificationsSection />
-          <ResumeSection />
+          <WorkExperienceSection />
           <ContactSection />
         </main>
         <PortfolioFooter />
