@@ -169,7 +169,6 @@ const AboutSection = () => {
             {/* Stats Grid */}
             <div className="scroll-reveal grid grid-cols-2 gap-4">
               {[
-                { value: "7.0", label: "CGPA", suffix: "" },
                 { value: "3+", label: "Projects Built", suffix: "" },
                 { value: "4+", label: "Certifications", suffix: "" },
                 { value: "B.E", label: "CSE Student", suffix: "" },
