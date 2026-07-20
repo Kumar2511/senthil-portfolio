@@ -202,7 +202,6 @@ JavaScript, MongoDB
                 <Mail className="w-5 h-5" />
               </a>
               <div className="h-px flex-1 bg-border" />
-              <span className="text-xs text-muted-foreground font-mono">senthilkumar.s</span>
             </div>
           </div>
 

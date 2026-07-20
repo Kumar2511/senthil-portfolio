@@ -55,11 +55,9 @@ const PortfolioFooter = () => {
 
         <div className="pt-8 border-t border-border/50 flex flex-col sm:flex-row items-center justify-between gap-4">
           <p className="text-muted-foreground text-sm flex items-center gap-1.5">
-            © {new Date().getFullYear()} Senthilkumar. Built with
-            <Heart className="w-3.5 h-3.5 text-primary fill-current" /> and React
+            © {new Date().getFullYear()} Senthilkumar. 
           </p>
           <div className="flex items-center gap-4">
-            <span className="text-xs font-mono text-muted-foreground">v2.0.0</span>
             <button onClick={scrollToTop} className="flex items-center gap-1.5 text-sm text-muted-foreground hover:text-primary transition-colors group" aria-label="Scroll to top">
               Back to top <ArrowUp className="w-4 h-4 group-hover:-translate-y-1 transition-transform" />
             </button>

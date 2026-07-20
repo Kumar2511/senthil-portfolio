@@ -88,7 +88,7 @@ const AboutSection = () => {
                   <div className="absolute -left-[21px] top-1 w-3 h-3 rounded-full bg-accent/60 border-2 border-background" />
                   <div>
                     <h4 className="font-semibold text-foreground">B.Sc — Computer Science</h4>
-                    <p className="text-accent text-sm font-mono mt-0.5">E.G.S Pillay Arts & Science College</p>
+                    <p className="text-primary text-sm font-mono mt-0.5">E.G.S Pillay Arts & Science College</p>
                     <div className="flex items-center gap-2 mt-1 text-muted-foreground text-sm">
                       <Calendar className="w-3.5 h-3.5" />
                       <span>2020 – 2023</span>
@@ -101,7 +101,9 @@ const AboutSection = () => {
                 <div className="relative">
                   <div className="absolute -left-[21px] top-1 w-3 h-3 rounded-full bg-emerald-400/60 border-2 border-background" />
                   <div>
-                    <h4 className="font-semibold text-foreground">HSC (The Merit Higher Secondary School)</h4>
+                    <h4 className="font-semibold text-foreground">Higher Secondary School</h4>
+                                        <p className="text-accent text-sm font-mono mt-0.5">The Merit Higher.Secondary School</p>
+
                     <div className="flex items-center gap-2 mt-1 text-muted-foreground text-sm">
                       <Calendar className="w-3.5 h-3.5" />
                       <span>2020</span>
@@ -112,7 +114,9 @@ const AboutSection = () => {
                 <div className="relative">
                   <div className="absolute -left-[21px] top-1 w-3 h-3 rounded-full bg-orange-400/60 border-2 border-background" />
                   <div>
-                    <h4 className="font-semibold text-foreground">SSLC (The Merit Higher Secondary School)</h4>
+                    <h4 className="font-semibold text-foreground">Secondary School Leaving Certificate</h4>
+                                                            <p className="text-accent text-sm font-mono mt-0.5">The Merit Higher.Secondary School</p>
+
                     <div className="flex items-center gap-2 mt-1 text-muted-foreground text-sm">
                       <Calendar className="w-3.5 h-3.5" />
                       <span>2018</span>
