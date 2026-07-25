@@ -26,76 +26,79 @@ const projects = [
     live: "https://digital-heroes-web-task-three.vercel.app/",
     featured: true,
   },
-  {
-    id: 1,
-    title: "Online Banking Security System",
-    description:
-      "A secure banking web application implementing hybrid cryptography and multi-factor authentication to protect user data and transactions.",
-    image: null,
-    tags: ["HTML", "CSS", "Python"],
-    category: "Full Stack",
-    github: "https://github.com/Kumar2511",
-    featured: true,
-  },
+  
   {
     id: 2,
-    title: "Complaint Box System",
-    description:
-      "A full-stack complaint management system with admin dashboard, complaint tracking, categorization, and status management for efficient resolution.",
-    image: null,
-    tags: ["HTML", "CSS", "Node.js", "MongoDB"],
-    category: "Full Stack",
-    github: "https://github.com/Kumar2511",
-    featured: true,
-  },
-  {
-    id: 3,
     title: "Expense Calendar",
     description:
       "A smart expense tracking application that tracks daily, monthly, and yearly expenses. Helps users manage budgets with visual reports and expense insights.",
     image: expenseImg,
     tags: ["HTML", "CSS", "JavaScript"],
     category: "Web",
-    github: "https://github.com/Kumar2511",
+    github: "https://github.com/Kumar2511/expenses",
     live: "https://expenses-calendar-teal.vercel.app/",
     featured: false,
   },
   {
-    id: 4,
+    id: 3,
     title: "Emmes Industries",
     description:
       "A professional business website designed for Emmes Industries, showcasing products and services with a modern, responsive, and user-friendly interface.",
     image: emmesImg,
     tags: ["Business", "Responsive", "UI/UX"],
-    category: "Web",
-    github: "https://github.com/Kumar2511",
+    category: "Business",
+    github: "https://github.com/Kumar2511/emmes",
     live: "https://www.emmesindustries.in",
     featured: true,
   },
   {
-    id: 5,
+    id: 4,
     title: "Friend's Fund Tracker",
     description:
       "A collaborative expense management application that simplifies bill splitting, tracks contributions, and manages shared expenses among friends.",
     image: fundTrackerImg,
     tags: ["React", "JavaScript", "Expense Tracker"],
     category: "Web",
-    github: "https://github.com/Kumar2511",
+    github: "https://github.com/Kumar2511/expense-tracker",
     live: "https://expense-tracker-pp9s.vercel.app/",
     featured: true,
   },
   {
-    id: 6,
+    id: 5,
     title: "Digital Land Purchasing System",
     description:
       "A full-stack digital platform for secure land registration and purchasing with role-based authentication, land management, and streamlined transaction workflows.",
     image: dlpsImg,
     tags: ["React", "Node.js", "MongoDB", "Express"],
     category: "Full Stack",
-    github: "https://github.com/Kumar2511",
+    github: "https://github.com/Kumar2511/DLPS",
     live: "https://dlps-eat8pgb2t-kumar2511s-projects.vercel.app/",
     featured: true,
   },
+{
+  id: 6,
+  title: "Online Banking Security System",
+  description:
+    "A secure banking web application implementing hybrid cryptography and multi-factor authentication to protect user data and transactions.",
+  image: null,
+  tags: ["HTML", "CSS", "Python"],
+  category: "Full Stack",
+  github: "https://github.com/Kumar2511",
+  live: null,
+  featured: true,
+},
+ {
+  id: 7,
+  title: "Complaint Box System",
+  description:
+    "A full-stack complaint management system with admin dashboard, complaint tracking, categorization, and status management for efficient resolution.",
+  image: null,
+  tags: ["HTML", "CSS", "Node.js", "MongoDB"],
+  category: "Full Stack",
+  github: "https://github.com/Kumar2511/nandhacomplaintbox",
+  live: null,
+  featured: true,
+},
 ];
 const categories = [
   "All",
@@ -106,7 +109,7 @@ const categories = [
 const ProjectsSection = () => {
   const sectionRef = useRef<HTMLDivElement>(null);
   const [activeFilter, setActiveFilter] = useState("All");
-
+  console.log("Active Filter:", activeFilter);
   useEffect(() => {
     const observer = new IntersectionObserver(
       (entries) => {
@@ -124,8 +127,27 @@ const ProjectsSection = () => {
     return () => observer.disconnect();
   }, []);
 
-  const filtered = activeFilter === "All" ? projects : projects.filter((p) => p.category === activeFilter);
+const filtered = projects.filter((project) => {
+  if (activeFilter === "All") return true;
 
+  if (activeFilter === "React") {
+    return project.tags.includes("React");
+  }
+
+  if (activeFilter === "Full Stack") {
+    return project.category === "Full Stack";
+  }
+
+  if (activeFilter === "Business") {
+    return (
+      project.category === "Business" ||
+      project.tags.includes("Business")
+    );
+  }
+
+  return false;
+});
+console.log("Filtered Projects:", filtered);
   return (
     <section id="projects" className="py-24 bg-section-alt" ref={sectionRef}>
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -134,7 +156,7 @@ const ProjectsSection = () => {
           <h2 className="section-heading text-gradient">Featured Projects</h2>
           <div className="w-24 h-1 bg-primary-gradient mx-auto mt-4 rounded-full" />
           <p className="mt-4 text-muted-foreground max-w-xl mx-auto">
-            A showcase of real-world applications I've built — from full-stack systems to creative web projects.
+            A showcase of real-world applications I've built - from full-stack systems to creative web projects.
           </p>
         </div>
 
@@ -143,7 +165,10 @@ const ProjectsSection = () => {
           {categories.map((cat) => (
             <button
               key={cat}
-              onClick={() => setActiveFilter(cat)}
+             onClick={() => {
+  console.log("Clicked:", cat);
+  setActiveFilter(cat);
+}}
               className={`px-4 py-2 rounded-lg text-sm font-medium transition-all duration-200 ${
                 activeFilter === cat
                   ? "bg-primary text-primary-foreground shadow-lg shadow-primary/30"
@@ -159,8 +184,7 @@ const ProjectsSection = () => {
           {filtered.map((project, i) => (
             <div
               key={project.id}
-              className="scroll-reveal group glass-card glow-border overflow-hidden hover:scale-[1.02] transition-all duration-300"
-              style={{ transitionDelay: `${i * 0.1}s` }}
+className="group glass-card glow-border overflow-hidden hover:scale-[1.02] transition-all duration-300"              style={{ transitionDelay: `${i * 0.1}s` }}
             >
               <div className="relative overflow-hidden h-48">
                 {project.image ? (
@@ -180,11 +204,24 @@ const ProjectsSection = () => {
                   <a href={project.github} target="_blank" rel="noopener noreferrer" className="flex items-center gap-2 px-4 py-2 rounded-lg bg-card border border-border text-sm font-medium hover:border-primary hover:text-primary transition-colors">
                     <Github className="w-4 h-4" /> Code
                   </a>
-                  {project.live && (
-                    <a href={project.live} target="_blank" rel="noopener noreferrer" className="flex items-center gap-2 px-4 py-2 rounded-lg bg-primary text-primary-foreground text-sm font-medium hover:opacity-90 transition-opacity">
-                      <ExternalLink className="w-4 h-4" /> Live Demo
-                    </a>
-                  )}
+                 {project.live ? (
+  <a
+    href={project.live}
+    target="_blank"
+    rel="noopener noreferrer"
+    className="flex items-center gap-2 px-4 py-2 rounded-lg bg-primary text-primary-foreground text-sm font-medium hover:opacity-90 transition-opacity"
+  >
+    <ExternalLink className="w-4 h-4" />
+    Live Demo
+  </a>
+) : (
+  <button
+    disabled
+    className="flex items-center gap-2 px-4 py-2 rounded-lg bg-gray-600/20 border border-gray-500/30 text-gray-400 text-sm font-medium cursor-not-allowed opacity-80"
+  >
+    🚧 Demo Coming Soon
+  </button>
+)}
                 </div>
               </div>
 
@@ -203,14 +240,19 @@ const ProjectsSection = () => {
                   <a href={project.github} target="_blank" rel="noopener noreferrer" className="flex items-center gap-1.5 text-sm text-muted-foreground hover:text-primary transition-colors">
                     <Github className="w-4 h-4" /> Source Code
                   </a>
-                  {project.live && (
-                    <>
-                      <span className="text-border">•</span>
-                      <a href={project.live} target="_blank" rel="noopener noreferrer" className="flex items-center gap-1.5 text-sm text-muted-foreground hover:text-accent transition-colors">
-                        <ExternalLink className="w-4 h-4" /> Live Demo
-                      </a>
-                    </>
-                  )}
+                 {project.live && (
+  <>
+    <span className="text-border">•</span>
+    <a
+      href={project.live}
+      target="_blank"
+      rel="noopener noreferrer"
+      className="flex items-center gap-1.5 text-sm text-muted-foreground hover:text-accent transition-colors"
+    >
+      <ExternalLink className="w-4 h-4" /> Live Demo
+    </a>
+  </>
+)}
                 </div>
               </div>
             </div>
