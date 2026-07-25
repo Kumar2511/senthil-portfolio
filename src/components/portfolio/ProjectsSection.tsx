@@ -1,11 +1,31 @@
 import { useEffect, useRef, useState } from "react";
 import { ExternalLink, Github, Filter } from "lucide-react";
+import nexoraImg from "@/assets/project-nexora.png";
 import expenseImg from "@/assets/project-expense.jpg";
 import emmesImg from "@/assets/project-emmes.png";
 import fundTrackerImg from "@/assets/project-fundtracker.png";
 import dlpsImg from "@/assets/project-dlps.png";
 
 const projects = [
+  {
+    id: 0,
+    title: "Nexora AI – SaaS Business Platform",
+    description:
+      "A modern AI-powered SaaS website built with React, TypeScript, and Vite. Features responsive design, reusable components, smooth animations, SEO optimization, and high-performance architecture for a professional user experience.",
+    image: nexoraImg,
+    tags: [
+      "React",
+      "TypeScript",
+      "Vite",
+      "Tailwind CSS",
+      "SEO",
+      "Performance",
+    ],
+    category: "Web",
+    github: "https://github.com/Kumar2511/digital-heroes-web-task",
+    live: "https://digital-heroes-web-task-three.vercel.app/",
+    featured: true,
+  },
   {
     id: 1,
     title: "Online Banking Security System",
@@ -15,7 +35,6 @@ const projects = [
     tags: ["HTML", "CSS", "Python"],
     category: "Full Stack",
     github: "https://github.com/Kumar2511",
-    
     featured: true,
   },
   {
@@ -33,7 +52,7 @@ const projects = [
     id: 3,
     title: "Expense Calendar",
     description:
-      "A smart expense tracking application that tracks daily, monthly, and yearly expenses. Helps in budget planning and expense analysis with visual insights.",
+      "A smart expense tracking application that tracks daily, monthly, and yearly expenses. Helps users manage budgets with visual reports and expense insights.",
     image: expenseImg,
     tags: ["HTML", "CSS", "JavaScript"],
     category: "Web",
@@ -45,9 +64,9 @@ const projects = [
     id: 4,
     title: "Emmes Industries",
     description:
-      "A professional business website for Emmes Industries, showcasing their products and services with a modern, responsive design.",
+      "A professional business website designed for Emmes Industries, showcasing products and services with a modern, responsive, and user-friendly interface.",
     image: emmesImg,
-    tags: ["Web Design", "Responsive", "Business"],
+    tags: ["Business", "Responsive", "UI/UX"],
     category: "Web",
     github: "https://github.com/Kumar2511",
     live: "https://www.emmesindustries.in",
@@ -57,9 +76,9 @@ const projects = [
     id: 5,
     title: "Friend's Fund Tracker",
     description:
-      "A collaborative expense tracking app to manage shared expenses among friends. Track contributions, split bills, and settle balances easily.",
+      "A collaborative expense management application that simplifies bill splitting, tracks contributions, and manages shared expenses among friends.",
     image: fundTrackerImg,
-    tags: ["HTML", "CSS", "JavaScript"],
+    tags: ["React", "JavaScript", "Expense Tracker"],
     category: "Web",
     github: "https://github.com/Kumar2511",
     live: "https://expense-tracker-pp9s.vercel.app/",
@@ -69,18 +88,21 @@ const projects = [
     id: 6,
     title: "Digital Land Purchasing System",
     description:
-      "A digital platform for land purchasing and registration, streamlining the process of buying, selling, and managing land records with secure transactions.",
+      "A full-stack digital platform for secure land registration and purchasing with role-based authentication, land management, and streamlined transaction workflows.",
     image: dlpsImg,
-    tags: ["HTML", "CSS", "JavaScript", "Node.js"],
+    tags: ["React", "Node.js", "MongoDB", "Express"],
     category: "Full Stack",
     github: "https://github.com/Kumar2511",
     live: "https://dlps-eat8pgb2t-kumar2511s-projects.vercel.app/",
     featured: true,
   },
 ];
-
-const categories = ["All", "Full Stack", "Web"];
-
+const categories = [
+  "All",
+  "React",
+  "Full Stack",
+  "Business",
+];
 const ProjectsSection = () => {
   const sectionRef = useRef<HTMLDivElement>(null);
   const [activeFilter, setActiveFilter] = useState("All");
