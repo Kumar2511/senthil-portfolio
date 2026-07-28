@@ -158,7 +158,7 @@ JavaScript, MongoDB
                 View Projects
               </button>
               <a
-                href="/Senthilkumar.pdf"
+                href="/Senthil-Resume.pdf"
                 download
                 className="flex items-center justify-center gap-2 px-6 py-3 rounded-xl bg-transparent border border-primary/40 text-foreground font-semibold transition-all duration-200 hover:border-primary hover:bg-primary/10 hover:scale-105"
               >
